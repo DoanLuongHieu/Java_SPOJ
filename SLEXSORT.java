@@ -1,56 +1,33 @@
 package Java_SPOJ;
-
-//Import thư viện để sử dụng các hàm trong đó
 import java.util.Arrays;
 import java.util.Scanner;
-
-//Khai báo class SLEXSORT
-class SLEXSORT {
-    //Hàm main
+class S{
     public static void main(String[] args) {
-
-        //Tạo đối tượng Scanner để nhận đầu vào từ bàn phím
-        Scanner in = new Scanner(System.in);
-
-        //Nhập số lượng trường hợp cần xử lý
-        int t = in.nextInt();
-
-        //Vòng lặp for để xử lý từng trường hợp
+        Scanner s = new Scanner(System.in);
+        int t = s.nextInt();
         for (int i = 0; i < t; i++) {
-
-            //Nhập chuỗi A
-            String A = in.next();
-
-            //Nhập số lượng từ cần sắp xếp
-            int n = in.nextInt();
-
-            //Khởi tạo mảng chứa các từ cần sắp xếp
-            String[] words = new String[n];
-
-            //Vòng lặp để nhập từng từ vào mảng
+            String A = s.next();
+            int n = s.nextInt();
+            String[] w = new String[n];
             for (int j = 0; j < n; j++) {
-                words[j] = in.next();
+                w[j] = s.next();
             }
-
-            //Sử dụng hàm sort của thư viện Arrays để sắp xếp các từ trong mảng words theo thứ tự được định nghĩa bằng lambda expression
-            Arrays.sort(words, (x, y) -> {
+            Arrays.sort(w,(x,y) -> {
                 int p = x.length();
                 int q = y.length();
                 int j = 0, z;
                 while (j < p && j < q) {
                     z = A.indexOf(x.charAt(j)) - A.indexOf(y.charAt(j++));
                     if (z != 0) return z;
-                }
-                return p - q;
+                }return p - q;
             });
-
-            //Vòng lặp for-each để in ra các từ đã sắp xếp
-            for (String word : words) {
-                System.out.println(word);
+            for (String z : w) {
+                System.out.println(z);
             }
-
-            //In ra một dòng trống để ngăn cách giữa các trường hợp
             System.out.println();
         }
     }
 }
+// Bắt đầu từ đây, vì vấn đề này cần độ dài của mã nguồn luôn là nhỏ nhất (theo yêu cầu của vấn đề trong website https://www.spoj.com/problems/SLEXSORT/)
+// Vì lẽ đó, đoạn code sẽ càng ngày càng ngắn, và để không phải viết lại, tôi sẽ chỉ giải thích các dòng lệnh trong vấn đề này ở commit đầu tiên (Add SLEXSORT.java)
+// Từ các commit sau của vấn đề này, sẽ chỉ có các đoạn mã (với độ dài ngày càng ngắn).
