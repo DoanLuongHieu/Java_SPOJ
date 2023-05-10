@@ -1,23 +1,22 @@
 package Java_SPOJ;
-
 import java.io.*;
 import java.util.*;
 
 class CTRICK {
-
     InputStream obj;
     PrintWriter out;
     String check = "";
 
-    //Solution !!
+    // Hàm giải quyết bài toán
     void solution() {
-        int t = inti();
+        int t = inti(); // số lượng bộ test
         for (int tt = 0; tt < t; tt++) {
-            int n = inti();
-            int arr[] = new int[n+1];
-            int[] bit = createTree(n);
+            int n = inti(); // số lượng phần tử của mảng
+            int arr[] = new int[n+1]; // mảng kết quả
+            int[] bit = createTree(n); // tạo cây Fenwick (Binary Indexed Tree) với n phần tử
             int M = n, L = 1;
 
+            // Thực hiện các phép biến đổi theo yêu cầu của bài toán và lưu kết quả vào mảng arr
             for (int i = 1; i <= n; i++) {
                 L = (L + i) % M;
                 L = (L == 0) ? M : L;
@@ -26,6 +25,7 @@ class CTRICK {
                 arr[u] = i;
                 bit = updateBinaryIndexedTree(bit, -1, u);
             }
+            // In kết quả của bộ test hiện tại
             for(int i=1;i<=n;i++){
                 out.print(arr[i]+" ");
             }
@@ -33,6 +33,7 @@ class CTRICK {
         }
     }
 
+    // Hàm tìm kiếm nhị phân trong cây Fenwick để lấy vị trí thích hợp cho phần tử tiếp theo
     int binarySearch(int[] bit,int L) {
         int low = 1, high = bit.length - 1;
         int mid;
@@ -47,14 +48,17 @@ class CTRICK {
         return low;
     }
 
+    // Hàm lấy vị trí của phần tử cha của một phần tử trong cây Fenwick
     int getParent(int index) {
         return index - (index & -index);
     }
 
+    // Hàm lấy vị trí của phần tử con của một phần tử trong cây Fenwick
     int getNext(int index) {
         return index + (index & -index);
     }
 
+    // Hàm cập nhật giá trị của một phần tử trong cây Fenwick
     int[] updateBinaryIndexedTree(int bit[], int value, int index) {
         while (index < bit.length) {
             bit[index] += value;
@@ -62,9 +66,8 @@ class CTRICK {
         }
         return bit;
     }
-
+    // Hàm tính tổng giá trị của các phần tử trong đoạn từ 1 đến index trong cây Fenwick
     long getSum(int bit[], int index) {
-//        index++;
         long sum = 0;
         while (index > 0) {
             sum += bit[index];
@@ -73,6 +76,7 @@ class CTRICK {
         return sum;
     }
 
+    // Hàm tạo cây Fenwick với n phần tử và khởi tạo giá trị ban đầu cho mỗi phần tử là 1
     int[] createTree(int n) {
         int bit[] = new int[n + 1];
         for (int i = 1; i <= n; i++) {
@@ -81,7 +85,7 @@ class CTRICK {
         return bit;
     }
 
-    //------->ends !!
+    // Hàm main, đọc dữ liệu từ input và gọi hàm giải quyết bài toán
     public static void main(String[] args) throws IOException {
         new Thread(null, new Runnable() {
             public void run() {
@@ -96,17 +100,16 @@ class CTRICK {
         }, "1", 1 << 26).start();
     }
 
+    // Hàm ace, khởi tạo các biến đầu vào, gọi hàm giải quyết bài toán và in kết quả
     void ace() throws IOException {
         out = new PrintWriter(System.out);
         obj = check.isEmpty() ? System.in : new ByteArrayInputStream(check.getBytes());
-//        obj=check.isEmpty() ? new FileInputStream("location of file") : new ByteArrayInputStream(check.getBytes());
-//        long t1=System.currentTimeMillis();
         solution();
-//        long t2=System.currentTimeMillis();
-//        out.println(t2-t1);
         out.flush();
         out.close();
     }
+
+    // Các hàm đọc dữ liệu đầu vào từ input
     byte inbuffer[] = new byte[1024];
     int lenbuffer = 0, ptrbuffer = 0;
 
@@ -127,28 +130,24 @@ class CTRICK {
         }
         return inbuffer[ptrbuffer++];
     }
-
     boolean isSpaceChar(int c) {
         return (!(c >= 33 && c <= 126));
     }
-
     String stri() {
         int b = skip();
         StringBuilder sb = new StringBuilder();
-        while (!(isSpaceChar(b))) // when nextLine, (isSpaceChar(b) && b!=' ')
+        while (!(isSpaceChar(b)))
         {
             sb.appendCodePoint(b);
             b = readByte();
         }
         return sb.toString();
     }
-
     int skip() {
         int b;
         while ((b = readByte()) != -1 && isSpaceChar(b));
         return b;
     }
-
     int inti() {
         int num = 0, b;
         boolean minus = false;
@@ -166,7 +165,6 @@ class CTRICK {
             b = readByte();
         }
     }
-
     int[][] ar2D(int n, int m) {
         int ark[][] = new int[n][m];
         for (int i = 0; i < n; i++) {
@@ -176,7 +174,6 @@ class CTRICK {
         }
         return ark;
     }
-
     long loni() {
         long num = 0;
         int b;
@@ -195,19 +192,15 @@ class CTRICK {
             b = readByte();
         }
     }
-
     float fl() {
         return Float.parseFloat(stri());
     }
-
     double dou() {
         return Double.parseDouble(stri());
     }
-
     char chi() {
         return (char) skip();
     }
-
     int[] arri(int n) {
         int a[] = new int[n];
         for (int i = 0; i < n; i++) {
@@ -215,7 +208,6 @@ class CTRICK {
         }
         return a;
     }
-
     long[] arrl(int n) {
         long a[] = new long[n];
         for (int i = 0; i < n; i++) {
@@ -223,7 +215,6 @@ class CTRICK {
         }
         return a;
     }
-
     String[] stra(int n) {
         String a[] = new String[n];
         for (int i = 0; i < n; i++) {
@@ -231,14 +222,11 @@ class CTRICK {
         }
         return a;
     }
-
     private static void pa(Object... o) {
         System.out.println(Arrays.deepToString(o));
     }
-//    uwi mod pow function
-
+    // Hàm pow, tính a^n mod m
     public static long pow(long a, long n, long mod) {
-//		a %= mod;
         long ret = 1;
         int x = 63 - Long.numberOfLeadingZeros(n);
         for (; x >= 0; x--) {
@@ -249,14 +237,14 @@ class CTRICK {
         }
         return ret;
     }
-
+    // Hàm tính ước số chung lớn nhất của 2 số a và b
     int gcd(int a, int b) {
         if (a == 0) {
             return b;
         }
         return gcd(b % a, a);
     }
-
+    // Hàm tính bội số chung nhỏ nhất của 2 số a và b
     long lcm(int a, int b) {
         return a * (b / gcd(a, b));
     }
